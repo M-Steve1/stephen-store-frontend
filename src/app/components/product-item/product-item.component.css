@@ -1,0 +1,32 @@
+form {
+  width: 300px;
+  height: 530px;
+}
+
+.product-image {      
+    list-style-type: none;
+    width: 290px;
+    height: 350px;
+    padding: 20px;
+    margin: 6px 6px;        
+    border-style:inset;
+    cursor: pointer;
+  } 
+  
+  .product-container {
+    margin-top: 64px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .select-input {
+    width: 108px; 
+    margin-bottom: 8px;
+  }
+
+  .add-to-cart {
+    color: green;
+  }

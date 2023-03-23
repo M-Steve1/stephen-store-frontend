@@ -1,0 +1,38 @@
+<form class="product-container" (ngSubmit)="onCreateCart(product)">
+    <img (dblclick)="onDblClick(product)" class="product-image" src="{{ product.url }}" alt="{{ product.name }}">
+    <p *ngIf="product.name.length > 25">
+        {{ product.name.substring(0, 25) + "..." }}
+    </p>
+    <p *ngIf="product.name.length < 25">
+        {{ product.name }}
+    </p>
+    <p> ${{ product.price }}</p>
+    <select
+        [(ngModel)]="quantity"
+        class="select-input" 
+        name="quantity" 
+        id="quantity"
+        [ngStyle]="{'background-color': '#dfeced'}">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+    <input 
+        class="select-input button"  
+        type="submit" 
+        value="Add to cart"
+        [disabled]="product.addedToCart">
+        <div
+            *ngIf="product.addedToCart !== undefined" 
+            class="add-to-cart"> 
+            <fa-icon [icon]="faCheck"></fa-icon>
+            {{ product.addedToCart }}
+        </div>
+</form>

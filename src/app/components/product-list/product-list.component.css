@@ -1,0 +1,41 @@
+.container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 70px;
+  }
+
+  .categories {
+    margin-top: -20px;
+  }
+
+  .no-product-found {
+    color: red;
+    font-size: larger;
+    text-align: center;
+    margin-top: 10%;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .container {
+        flex-direction: column-reverse;
+    }
+    .slideshow {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 30px;
+    }
+    .product-container {
+      margin-left: 0px;
+    }
+    .categories {
+      width: 100%;
+    }
+}

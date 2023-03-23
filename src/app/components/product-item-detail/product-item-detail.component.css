@@ -1,0 +1,41 @@
+img {
+    border-radius: 10px;
+    width: 320px;
+  }
+  
+  .select-input {
+    width: 108px; 
+    margin-bottom: 25px;
+  }
+  
+  .detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 64px;
+  }
+  
+  .detail-item {
+    margin-left: 128px;
+    margin-right: 128px;
+  }
+  
+  .back-link {
+    text-decoration: none;
+  }
+
+  h2, p {
+    width: 300px;
+    margin-bottom: 15px;
+  }
+
+@media screen and (max-width: 1000px) {
+  .detail-container {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .detail-item {
+    margin-left: 10px;
+  }
+} 

@@ -1,0 +1,134 @@
+<div 
+    [ngClass]="{'empty-cart-message': productsInCart.length === 0}" 
+    *ngIf="productsInCart.length === 0 && hasRoute('/cart')">
+    <h2>Cart is empty</h2>
+</div>
+<div 
+    *ngIf="productsInCart.length !== 0 && hasRoute('/cart')" 
+    class="cart-container">
+    <div>
+        <div 
+            *ngFor="let product of productsInCart" 
+            class="cart-item">
+            <img 
+                src="{{ product.url }}" 
+                alt="product.name">
+            <div 
+                class="cart-item-details">
+                <h3>
+                    {{ product.name }}
+                </h3>
+                <p>
+                    ${{ product.price }}
+                </p>
+                <div>
+                    <span>
+                        Quantity:
+                    </span>
+                    <input
+                        min="1"
+                        class="number-input"
+                        type="number" 
+                        name="quantity"
+                        value="{{ product.quantity }}"
+                        [(ngModel)]="product.quantity"
+                        (change)="updateQuantity(product.id, product.quantity)">
+                </div>
+                <fa-icon
+                (click)="removeItemFromCart(product.productInCartId, product.id)" 
+                [icon]="faTimes"
+                class="fa-times-icon">
+                </fa-icon>
+            </div>
+        </div>
+        <h2>
+            Total: ${{ totalPrice.toFixed(2) }}
+         </h2>
+    </div>
+
+    <form 
+        #form="ngForm" 
+        class="cart-panel"
+        *ngIf="hasRoute('/cart')">
+        <label for="fullName">Full Name</label>
+        <input
+            required
+            class="form-margin" 
+            type="text" 
+            name="fullName" 
+            id="fullName" 
+            placeholder="Enter your full name"
+            [(ngModel)]="fullName"
+            #theFullName="ngModel">
+        <label for="address">Address</label>
+        <input
+            required
+            class="form-margin" 
+            type="text" 
+            name="address" 
+            id="address" 
+            placeholder="Enter your address"
+            [(ngModel)]="address"
+            #theAddress="ngModel">
+        <label for="cardNumber">Credit card number</label>
+        <input
+            required
+            minlength="16"
+            maxlength="16"
+            class="form-margin"      
+            type="text"
+            name="cardNumber"
+            id="cardNumber"
+            placeholder="(16-digit number)"
+            [(ngModel)]="cardNumber"
+            #card="ngModel">
+        <span class="form-margin">
+            We'll never share your payment details with anyone
+        </span>
+        <button 
+            [disabled]="form.invalid"
+            class="button" 
+            type="submit"
+            (click)="createOrder()">
+            Submit
+        </button>
+        
+    </form>
+</div>
+
+<div
+    *ngIf="!hasRoute('/cart') && productsInCart.length > 0"
+    class="alternative-cart-container"
+    [ngClass]="{'alternative-cart-container-height' : productsInCart.length > 3}">
+    <span>
+        Total: <b [ngStyle]="{'color': 'red'}">${{ totalPrice.toFixed(2) }}</b>
+    </span>
+    <div
+        class="alternative-item-details" 
+        *ngFor="let product of productsInCart">
+        <img 
+        class="alternative-img"
+        src="{{ product.url }}" 
+        alt="product.name">
+        <input
+        min="1"
+        class="number-input"
+        type="number" 
+        name="quantity"
+        value="{{ product.quantity }}"
+        [(ngModel)]="product.quantity"
+        (change)="updateQuantity(product.id, product.quantity)">
+        <fa-icon
+        (click)="removeItemFromCart(product.productInCartId, product.id)" 
+        [icon]="faTimes"
+        class="fa-times-icon">
+        </fa-icon>
+        <span class="price">
+            ${{ product.price }}
+        </span>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Sign In</h2>
+    <form #form="ngForm" (ngSubmit)="signIn()">
+        <input 
+            required
+            type="text" 
+            name="userName" 
+            id="userName"
+            placeholder="User Name"
+            [(ngModel)]="userName">
+
+        <input 
+            required
+            type="password" 
+            name="password" 
+            id="password"
+            placeholder="Password"
+            [(ngModel)]="password">
+
+        <button
+            type="submit"
+            [disabled]="form.invalid">
+            Sign In 
+        </button>
+        <button type="button">
+            <a routerLink="/signup">
+                Sign Up
+            </a>
+        </button>
+    </form>
+    <div 
+        class="err-message"
+        *ngIf="errorMessage !== ''">
+        {{ errorMessage }}
+    </div>
+</div>

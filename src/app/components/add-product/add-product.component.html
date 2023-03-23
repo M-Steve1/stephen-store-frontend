@@ -1,0 +1,56 @@
+<div class="container">
+    <form #form="ngForm">
+        <label for="name">Name</label>
+        <input
+            required 
+            type="text" 
+            name="name" 
+            id="name"
+            placeholder="Enter name of product"
+            [(ngModel)]="name">
+
+        <label for="name">Price</label>
+        <input
+            required 
+            type="number" 
+            name="price" 
+            id="price"
+            placeholder="Enter Price"
+            [(ngModel)]="price">
+
+        <label for="name">Category</label>
+        <input
+            required 
+            type="text" 
+            name="category" 
+            id="category"
+            placeholder="Enter Category"
+            [(ngModel)]="category">
+    
+        <label for="name">url</label>
+        <input
+            required 
+            type="text" 
+            name="url" 
+            id="url"
+            placeholder="Enter image url for product"
+            [(ngModel)]="url">
+
+        <label for="name">Description</label>
+        <input
+            required 
+            type="text" 
+            name="description" 
+            id="description"
+            placeholder="Enter Product Description"
+            [(ngModel)]="description">
+
+        <button 
+            type="submit" 
+            class="button"
+            [disabled]="form.invalid"
+            (click)="createProduct()">
+            Submit
+        </button>
+    </form>
+</div>

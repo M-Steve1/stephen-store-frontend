@@ -1,0 +1,47 @@
+<div class="container">
+    <h2>Create an account</h2>
+    <form #form="ngForm" (ngSubmit)="createUser()">
+        <input 
+            required
+            type="text" 
+            name="fName" 
+            id="fName"
+            placeholder="First Name"
+            [(ngModel)]="fName">
+
+        <input 
+            required
+            type="text" 
+            name="lName" 
+            id="lName"
+            placeholder="Last Name"
+            [(ngModel)]="lName">
+        
+        <input 
+            required
+            type="text" 
+            name="userName" 
+            id="userName"
+            placeholder="User Name"
+            [(ngModel)]="userName">
+
+        <input 
+            required
+            type="password" 
+            name="password" 
+            id="password"
+            placeholder="Password"
+            [(ngModel)]="password">
+
+        <button
+            type="submit"
+            [disabled]="form.invalid">
+            Create account
+        </button>
+    </form>
+    <div 
+        class="err-message"
+        *ngIf="errorMessage !== ''">
+        {{ errorMessage }}
+    </div>
+</div>

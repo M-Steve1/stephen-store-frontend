@@ -1,0 +1,27 @@
+<app-cart
+    *ngIf="!hasRoute('/')">
+</app-cart>
+<div class="container">
+   <div class="categories">
+    <app-display-categories></app-display-categories>
+   </div> 
+
+   <div class="slideshow">
+   </div>
+   
+</div>
+
+<div     
+    class="product-container">
+    <app-product-item
+       (createCart)="createCart($event)"
+       *ngFor="let product of products"
+       [product]="product">
+   </app-product-item>
+</div>
+
+<div
+    class="no-product-found" 
+    *ngIf="hasRoute('/product-category') && products === undefined">
+    No Product Found
+</div>

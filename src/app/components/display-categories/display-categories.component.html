@@ -1,0 +1,30 @@
+<app-cart *ngIf="hasRoute('/product-category')"></app-cart>
+
+<div class="container">
+    <div class="categories">
+        <ul *ngFor="let category of categoriesAndIcons">
+            <li>
+                <a
+                (click)="theCategory(category.category)">
+                <fa-icon
+                    [icon]="category.icon">
+                </fa-icon>
+                {{ category.category }}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div 
+        *ngIf="hasRoute('/product-category')"
+        class="slideshow">
+    </div>
+</div>
+
+<div     
+    class="product-container">
+    <app-product-item
+       (createCart)="createCart($event)"
+       *ngFor="let product of products"
+       [product]="product">
+   </app-product-item>
+</div>

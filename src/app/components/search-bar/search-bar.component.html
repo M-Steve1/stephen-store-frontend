@@ -1,0 +1,25 @@
+<form (ngSubmit)="searchedProduct(productName)">
+    <input 
+        type="text" 
+        placeholder="  Search.." 
+        name="productName"
+        [(ngModel)]="productName"
+        (keyup.backspace)="redoSuggestions()"
+        (keyup)="[suggestions()]"
+        (focus)="showSuggestions(true)">
+    <button
+        (click)="showSuggestions(false)"
+        type="submit">
+        <fa-icon [icon]="faSearch"></fa-icon>
+    </button>
+</form>
+<div
+    *ngIf="show"
+    class="search-result">
+    <div
+        *ngFor="let productName of filteredProducts"
+        (click)="checkProduct(productName)"
+        class="search-result-item">
+        {{ productName }}
+    </div>
+</div>

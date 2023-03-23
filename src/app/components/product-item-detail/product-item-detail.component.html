@@ -1,0 +1,47 @@
+<app-cart></app-cart>
+<form 
+    class="detail-container" 
+    (ngSubmit)="createCart(productDetail)">
+    <img src="{{ productDetail.url }}" 
+        alt="{{ productDetail.name }}">
+    <div class="detail-item">
+        <h2>
+            {{ productDetail.name }}
+        </h2>
+        <p>
+            ${{ productDetail.price }}
+        </p>
+        <p>
+            {{ productDetail.description }}
+        </p>
+        <select 
+            class="select-input" 
+            name="quantity" 
+            id="quantity"
+            [ngStyle]="{'background-color': '#dfeced'}"
+            [(ngModel)]="quantity">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <input 
+            [ngStyle]="{'display': 'block'}" 
+            class="select-input button"  
+            type="submit" 
+            value="Add to cart">
+            <a 
+                routerLink="/" 
+                class="back-link">
+                <fa-icon [icon]="faArrowLeft">
+                </fa-icon>
+                Back to product list
+            </a>
+    </div>
+</form>

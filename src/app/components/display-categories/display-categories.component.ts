@@ -4,10 +4,8 @@ import { ProductService } from 'src/app/services/product.service';
 import { faEye, faCutlery, faPersonDress, faShirt, faDiamond, faBook, faComputer } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Product } from 'src/app/models/Product';
-import { Order } from 'src/app/models/Order';
-import { OrderService } from 'src/app/services/order.service';
-import { Cart } from 'src/app/models/Cart';
 import { CartService } from 'src/app/services/cart.service';
+import { Cart } from 'src/app/models/Cart';
 
 @Component({
   selector: 'app-display-categories',
@@ -37,7 +35,7 @@ export class DisplayCategoriesComponent implements OnInit{
 
   ngOnInit(): void {
     this.productService.getAllProductCategories().subscribe(res => {
-      res.forEach(r => {
+      res?.forEach(r => {
         this.allCategories.push(r.category)
       })
       for (let i = 0; i < this.categoriesAndIcons.length; i++) {
@@ -71,28 +69,11 @@ export class DisplayCategoriesComponent implements OnInit{
   }
   
   createCart(product: Product & {productQuantity: number}): void {
-    const token = sessionStorage.getItem('myToken')
-    if (token === null) {
-      localStorage.setItem(`item${product.id}`, product.id as string);
+  
+    if (localStorage.getItem(`item${product.id}`) === null) {
+      localStorage.setItem(`item${product.id}`, (product.id as number).toString());
       localStorage.setItem(`productQuantity${product.id}`, product.productQuantity.toString());
-      console.log(localStorage)
-    } else {
-       const userId  = sessionStorage.getItem('userId');
-       const cart: Cart = {
-         user_id: userId as string,
-         status: 'active'
-       }
-       this.cartService.getCartByUserId(cart.user_id).subscribe((res) => {
-        if (res !== null && res.user_id === cart.user_id) {
-          this.cartService.addProductInCart({cart_id: res.id as string, product_id: product.id as string, product_quantity: product.productQuantity}).subscribe()
-        } else {
-          this.cartService.create(cart).subscribe((res) => {
-            this.cartService.addProductInCart({cart_id: res.id as string, product_id: product.id as string, product_quantity: product.productQuantity}).subscribe()
-          })
-        }
-       })
     }
-   
 
     this.router.navigateByUrl('/', {skipLocationChange: false}).then(() => {
       this.router.navigate(['product-category', product.category], {

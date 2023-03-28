@@ -21,18 +21,19 @@ export class CartComponent implements OnInit {
   fullName: string = '';
   address: string = '';
   cardNumber: string = '';
+  message: string = '';
 
   constructor(private productService: ProductService, private router: Router, private cartService: CartService, private orderService: OrderService) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((res) => {
-      res.forEach(p => {
-        if (localStorage.getItem(`item${p.id}`) !== null || undefined) {
+      res?.forEach(p => {
+        if (localStorage.getItem(`item${p.id}`) !== null) {
           const productQuantity =  localStorage.getItem(`productQuantity${p.id}`);
           p.quantity = parseInt(productQuantity as unknown as string);
           this.productsInCart.unshift(p);
           this.totalPrice += (parseFloat(p.price as unknown as string) * parseInt(productQuantity as unknown as string));
-        }
+          }
         })
       })
   }
@@ -48,7 +49,7 @@ export class CartComponent implements OnInit {
     return (parseFloat(product.price as unknown as string) * parseInt(product.quantity as unknown as string));
   }
 
-  updateQuantity(productId: string | undefined | number, quantity: number | undefined): void {
+  updateQuantity(productId: undefined | number, quantity: number | undefined): void {
     this.totalPrice = 0;
 
     this.productsInCart.forEach(
@@ -58,22 +59,23 @@ export class CartComponent implements OnInit {
     )
     localStorage.removeItem(`item${productId}`);
     localStorage.removeItem(`productQuantity${productId}`);
-    localStorage.setItem(`item${productId}`, productId as string);
+    localStorage.setItem(`item${productId}`, (productId as number).toString());
     localStorage.setItem(`productQuantity${productId}`, (quantity as number).toString());
   }
 
   async createCart(): Promise<string | void> {
+    this.message = "Processing....."
     const userId = sessionStorage.getItem('userId') as string;
     const cart: Cart = {
-      user_id: userId,
+      user_id: parseInt(userId),
       status: "active"
     }
       this.cartService.create(cart).subscribe( c => {
-        if (c !== null || c !== undefined) {
-          localStorage.setItem("cartId", c.id as string);
+        if (c !== null) {
+          localStorage.setItem("cartId", (c.id as number).toString());
           this.productsInCart.forEach(p => {
-            this.cartService.addProductInCart({cart_id: c.id as string, product_id: p.id as string, product_quantity: p.quantity as number}).subscribe(res => {
-              if (res !== null || res !== undefined) {
+            this.cartService.addProductInCart({cart_id: c.id as number, product_id: p.id as number, product_quantity: p.quantity as number}).subscribe(res => {
+              if (res !== null) {
                 localStorage.removeItem(`item${res.product_id}`);
                 localStorage.removeItem(`productQuantity${res.product_id}`);
               }
@@ -83,54 +85,50 @@ export class CartComponent implements OnInit {
       });
   }
 
-  async clearCart(): Promise<void> {
-    const user_id = sessionStorage.getItem('userId');
-    this.cartService.updateCartStatus(user_id as string, 'completed').subscribe(res => {
-      if (res as unknown as string === 'jwt expired') {
-        sessionStorage.clear();
-        this.router.navigate(['signin']);
-      } else {
-        this.productsInCart = [];
-        return;
-      }
-    });
+  clearCart(): void {
+    this.productsInCart = [];
   }
 
   async createOrder():Promise<void> {
     const isLoggedIn = sessionStorage.getItem("myToken");
     if (isLoggedIn) {
-      await this.createCart();
+      this.createCart();
       setTimeout(() => {
         const cartId = localStorage.getItem("cartId");
         const userId = sessionStorage.getItem("userId");
         const order: Order = {
-          userId: userId as string,
-          cartId: cartId as string,
+          user_id: parseInt(userId as string),
+          cart_id: parseInt(cartId as string),
           status: "active"
         }
         this.orderService.createOrder(order).subscribe(async res => {
           if (res as unknown as string === "jwt expired") {
             this.router.navigate(['sigin']);
           } else {
-            await this.clearCart();
-            this.navigate();
+            this.clearCart();
+            this.cartService.updateCartStatus(parseInt(userId as string), "closed").subscribe(res => {
+              if (res !== null) {
+                this.navigate();
+              }
+            });
           }
         });
       }, 2000);
     } else {
-      this.router.navigate(['sigin']);
+      this.router.navigate(['signin']);
     }
+    // this.message = '';
   }
 
-  removeItemFromCart(productInCartId: string | undefined | number, productId: string | undefined | number): void {
+  removeItemFromCart(productInCartId: undefined | number, productId: undefined | number): void {
     const isLoggedIn = sessionStorage.getItem('myToken');
 
 
     if (isLoggedIn) {
       this.productsInCart = this.productsInCart.filter(p => {
-        return p.productInCartId !== productInCartId;
+        return p.productInCartId?.toString() !== productInCartId?.toString();
       })
-      this.cartService.removeItemFromCart(productInCartId as string).subscribe(res => {
+      this.cartService.removeItemFromCart(productInCartId as number).subscribe(res => {
         if (res as unknown as string === 'jwt expired') {
           sessionStorage.clear();
           this.router.navigate(['signin']);
@@ -138,7 +136,7 @@ export class CartComponent implements OnInit {
       });
     } else {
       this.productsInCart = this.productsInCart.filter(p => {
-        return p.id !== productId;
+        return p.id?.toString() !== productId?.toString();
       })
       localStorage.removeItem(`item${productId}`);
       localStorage.removeItem(`productQuantity${productId}`);

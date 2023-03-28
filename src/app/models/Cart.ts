@@ -1,5 +1,12 @@
 export interface Cart {
-    id?: string | number,
-    user_id: string,
+    id?: number,
+    user_id: number,
     status: string
+}
+
+export interface CartProduct {
+    id?: number
+    cart_id: number
+    product_id: number
+    product_quantity: number
 }

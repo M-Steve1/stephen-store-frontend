@@ -39,7 +39,7 @@ export class SignUpComponent {
       res => {
         if (res !== undefined) {
           sessionStorage.setItem('myToken', res.token);
-          sessionStorage.setItem('userId', res.userId as string);
+          sessionStorage.setItem('userId', (res.userId as number).toString());
           this.navigate();
         }
       }

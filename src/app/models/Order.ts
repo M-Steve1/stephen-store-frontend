@@ -1,6 +1,6 @@
 export interface Order{
     id?: number,
-    userId: string,
-    cartId: string,
+    user_id: number
+    cart_id: number
     status: string
 }

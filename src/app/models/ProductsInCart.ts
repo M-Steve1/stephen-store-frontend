@@ -1,11 +1,11 @@
 export interface ProductsInCart {
-    id?: number | string
+    id?: number
     name: string
     price: number
     url: string,
     category: string,
     description: string,
     quantity?: number,
-    cartId?: number | string
-    productInCartId?: string | number
+    cartId?: number
+    productInCartId?: number
 }

@@ -1,6 +1,6 @@
 # My-Store
 
-A full single-page e-commerce application with Angular called MyStore.
+An e-commerce application with Angular called Stephen-store.
 
 ## Usage
 

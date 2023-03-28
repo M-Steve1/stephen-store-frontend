@@ -1,11 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Order } from 'src/app/models/Order';
+import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
-import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { Cart } from 'src/app/models/Cart';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +12,7 @@ import { Cart } from 'src/app/models/Cart';
 export class ProductListComponent implements OnInit{
   products: Product[] & {addedToCart?: string} = [];
 
-  constructor(private productService: ProductService, private orderService: OrderService, private router: Router, private cartService: CartService) {
+  constructor(private productService: ProductService, private router: Router, private cartService: CartService) {
     this.products = this.router.getCurrentNavigation()
     ?.extras
     .state
@@ -27,8 +24,8 @@ export class ProductListComponent implements OnInit{
       this.productService.getProducts().subscribe(res => {
       this.products = res;
 
-      this.products.forEach((p) => {
-        if (localStorage.getItem(`item${p.id}`) !== null || undefined) {
+      this.products?.forEach((p) => {
+        if (localStorage.getItem(`item${p.id}`) !== null) {
            //@ts-ignore
            p.addedToCart  = "Added to Cart";
         }
@@ -53,20 +50,20 @@ export class ProductListComponent implements OnInit{
   }
 
 createCart(product: Product & {productQuantity: number}): void {
-  // prevent adding previously added products instead add to it 
-  localStorage.setItem(`item${product.id}`, product.id as string);
-  localStorage.setItem(`productQuantity${product.id}`, product.productQuantity.toString());
+  if (localStorage.getItem(`item${product.id}`) === null) {
+        localStorage.setItem(`item${product.id}`, (product.id as number).toString());
+        localStorage.setItem(`productQuantity${product.id}`, product.productQuantity.toString());
 
-   
-  this.products.find((p) => {
-    if (p.id === product.id) {
-     //@ts-ignore
-     p.addedToCart  = "Added to Cart";
-    }
-   })
+        this.products.find((p) => {
+          if (p.id === product.id) {
+           //@ts-ignore
+           p.addedToCart  = "Added to Cart";
+          }
+         })
+      }
 
-  this.reloadPage(product.name);
-    
+
+  this.reloadPage(product.name); 
   }
 
   hasRoute(route: string): boolean {

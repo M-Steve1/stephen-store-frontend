@@ -8,7 +8,7 @@ import { ProductsInCart } from '../models/ProductsInCart';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl: string = 'http://localhost:3000/product';
+  private apiUrl: string = 'https://stephenstore-serverside.vercel.app/product';
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +17,7 @@ export class ProductService {
     return this.http.get<Product[]>(url);
   }
 
-  getProductById(productId: string): Observable<ProductsInCart> {
+  getProductById(productId: number): Observable<ProductsInCart> {
     const url = `${this.apiUrl}/show/${productId}`;
     return this.http.get<Product>(url);
   }

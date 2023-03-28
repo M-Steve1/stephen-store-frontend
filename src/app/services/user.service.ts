@@ -7,7 +7,7 @@ import { SignedInUser, User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl: string = 'http://localhost:3000/user';
+  private apiUrl: string = 'https://stephenstore-serverside.vercel.app/user';
 
 
   constructor(private http: HttpClient) { }

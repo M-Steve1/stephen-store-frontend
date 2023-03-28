@@ -85,7 +85,13 @@
         <span class="form-margin">
             We'll never share your payment details with anyone
         </span>
-        <button 
+        <span 
+            *ngIf="message !== ''"
+            [ngStyle]="{color: 'green'}">
+            {{ message }}
+        </span>
+        <button
+            *ngIf="message === ''" 
             [disabled]="form.invalid"
             class="button" 
             type="submit"

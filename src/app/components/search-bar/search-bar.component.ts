@@ -22,7 +22,7 @@ export class SearchBarComponent implements OnInit{
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(res => {
-      res.forEach(r => {
+      res?.forEach(r => {
         this.allProducts.push(r.name)
       })
     })

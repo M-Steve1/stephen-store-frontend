@@ -30,8 +30,10 @@ export class ProductItemDetailComponent {
   }
 
   createCart(product: Product): void {
-    localStorage.setItem(`item${product.id}`, product.id as string);
-    localStorage.setItem(`productQuantity${product.id}`, this.quantity.toString());
+    if (localStorage.getItem(`item${product.id}`) === null) {
+  localStorage.setItem(`item${product.id}`, (product.id as number).toString());
+  localStorage.setItem(`productQuantity${product.id}`, this.quantity.toString());
+}
 
     // Reload the page in order to update the cart 
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {

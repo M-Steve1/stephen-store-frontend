@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Payment } from 'src/app/models/Payment';
 import { ProductsInCart } from 'src/app/models/ProductsInCart';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
-import { Order } from 'server/src/models/order';
 import { Cart } from 'src/app/models/Cart';
+import { Order } from 'src/app/models/Order';
 
 @Component({
   selector: 'app-cart',

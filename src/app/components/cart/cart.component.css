@@ -78,6 +78,10 @@ img {
     align-items: left;
     margin-left: 80px;
   }
+
+  .cart-item-details h3 {
+    width: 300px;
+  }
   
   .number-input {
     width: 80px;
@@ -93,6 +97,9 @@ img {
     display: flex;
     justify-content: center;
     color: red;
+    height: 300px;
+    display: flex;
+    align-items: center;
   }
 
   .fa-times-icon {

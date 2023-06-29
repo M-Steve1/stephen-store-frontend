@@ -1,9 +1,8 @@
 <header>
     <div>
-        <h1>{{ title }}</h1>
         <a 
             routerLink="/">
-            Products
+            <img src="../../../assets/images/logo-blue-background.svg" alt="">
         </a>
     </div>
     <div class="container">
@@ -12,30 +11,32 @@
         *ngIf="!hasRoute(['/signup', '/signin'])">
         <app-search-bar></app-search-bar>
     </div>
+   <div class="signin-and-cart-container">
     <div 
-        class="signin"
-        *ngIf="!hasRoute(['/signup', '/signin'])">
-        <span *ngIf="!signInOrLogOut()"><a routerLink="/signin">Sign In</a></span>
-        <span 
-            *ngIf="signInOrLogOut()"
-            (click)="logOut()">
-            <a routerLink="/">
-                Log Out
-            </a>
-        </span>
-    </div>
-    <div
-        *ngIf="!hasRoute(['/signup', '/signin'])" 
-        class="cart">
-        <div
-            *ngIf="cartCount > 0"
-            class="cart-count">
-            {{ cartCount }}
-        </div>
-        <a routerLink="/cart">
-            Cart 
-        <fa-icon [icon]="faShop"></fa-icon>
+    class="signin"
+    *ngIf="!hasRoute(['/signup', '/signin'])">
+    <span *ngIf="!signInOrLogOut()"><a routerLink="/signin">Sign In</a></span>
+    <span 
+        *ngIf="signInOrLogOut()"
+        (click)="logOut()">
+        <a routerLink="/">
+            Log Out
         </a>
-    </div>
+    </span>
+</div>
+<div
+    *ngIf="!hasRoute(['/signup', '/signin'])" 
+    class="cart">
+    <span
+        *ngIf="cartCount > 0"
+        class="cart-count">
+        {{ cartCount }}
+    </span>
+    <a routerLink="/cart">
+        Cart 
+    <fa-icon [icon]="faShop"></fa-icon>
+    </a>
+</div>
+   </div>
     </div>
 </header>

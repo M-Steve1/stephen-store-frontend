@@ -1,15 +1,23 @@
 header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: #33B5E5;
   color: #fff;
-  padding: 12px;
+  padding-bottom: 10px;
+}
+
+header div:first-child {
+  text-align: center;
+}
+header img {
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
 }
 .container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
 }
 
 header div:first-child {
@@ -21,46 +29,52 @@ a {
   font-size: larger;
   color: #ffffff;
 }
+.signin-and-cart-container {
+  display: flex;
+  justify-content: space-between;
+  width: 27%;
+}
 
 .signin {
-  display: flex;
-  align-items: center;
+  padding-top: 10px;
 }
 
 .cart {
-  font-size: larger;
+  font-size: large;
   align-items: center;
   margin-right: 50px;
-  height: 100px;
+  padding-top: 10px;
 }
 
 .cart-count {
-  font-size: 15px;
-  border-radius: 50%;
-  background-color: #a435f0;
-  color:  whitesmoke;
+  font-size: 18px;
   position: relative;
-  height: 30px;
-  width: 30px;
-  padding-top: 5px;
-  left: 35px;
+  top: -21px;
+  left: 73px;
 }
-
-@media screen and (min-width: 1000px) and (max-width: 1600px){
-  header {
-    flex-direction: column;
-  }
-
-  header div:first-child {
-    text-align: center;
-  }
   .search-bar-container {
     width: 70%;
   }
 
-}
+  @media screen and (max-width: 767px) { 
+    .container {
+      flex-direction: column;
+    }
+    .search-bar-container {
+      width: 90%;
+      margin-bottom: 20px;
+    }
+    .signin-and-cart-container {
+      width: 90%;
+      margin: auto;
+    }
+    .cart {
+      margin-right: 0px;
+    }
+  }
 
-@media screen and (max-width: 1000px) {
+
+/* @media screen and (max-width: 1000px) {
   header {
     flex-direction: column;
   }
@@ -82,4 +96,4 @@ a {
     left: 12px;
     top: 10px;
   }
-}
+} */

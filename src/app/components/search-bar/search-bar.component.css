@@ -1,5 +1,8 @@
+form {
+    width: 100%;
+}
 input[type=text] {
-    width: 1000px;
+    width: 80%;
     height: 45px;
     margin-top: 8px;
     font-size: 17px;
@@ -18,37 +21,21 @@ form button {
     cursor: pointer;
 }
 
-.search-result {
-    position: absolute;
-    z-index: 1;
-    color: black;
-    width: 1000px;
-}
-
 .search-result-item {
     border-style: outset;
     cursor: pointer;
 }
-
-@media screen and (min-width: 1000px) and (max-width: 1600px){
-    form {
-        width: 100%;
-    }
-    input[type=text] {
-        width: 80%;
-    }
-    button {
-        width: 50px;
-    } 
-    .search-result {
-        position: absolute;
-        width: 52%;
-        margin-left: 60px;
-    }
+.search-result {
+    position: absolute;
+    width: 55%;
+    margin-left: 60px;
+    z-index: 1;
+    color: black;
 }
 
-@media screen and (max-width: 1000px) {
-    input[type=text] {
-        width: 80%;
+
+@media screen and (max-width: 767px) {
+    form button {
+        margin-right: 0px;
     }
 }

@@ -20,5 +20,7 @@ export class ConfirmationComponent {
     .getCurrentNavigation()
     ?.extras.state
     ?.['totalPrice'];
+
+    localStorage.clear();
   }
 }

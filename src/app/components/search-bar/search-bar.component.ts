@@ -47,7 +47,7 @@ export class SearchBarComponent implements OnInit{
 
   suggestions(): void {
     this.filteredProducts = this.allProducts.filter(r => {
-      return r[this.productName.length - 1] === this.productName[this.productName.length - 1]
+      return r[this.productName.length - 1].toLowerCase() === this.productName[this.productName.length - 1].toLowerCase()
     })
   }
 
